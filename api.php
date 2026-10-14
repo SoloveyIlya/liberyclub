@@ -6,7 +6,7 @@ require_once __DIR__.'/php/app.php';
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store, private');
 header('X-Content-Type-Options: nosniff');
-function respond(int $status, array $data): never {
+function respond(int $status, array $data): void {
     http_response_code($status); echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_INVALID_UTF8_SUBSTITUTE); exit;
 }
 function request_body(): array {
@@ -69,6 +69,8 @@ try {
     }
 } catch(Throwable $error) {
     // Не выводим токен, контакты или текст заявки в HTTP-ответ.
-    error_log('Liberty API failure: '.get_class($error));
-    respond(502,['ok'=>false,'error'=>'server_error']);
+    $code=$error->getMessage();
+    if (!preg_match('/^(?:storage|curl_required|telegram_config|sheet|telegram|(?:google|telegram)_(?:http|curl)_\d+)$/D',$code)) $code='server_error';
+    error_log('Liberty API failure: '.$code);
+    respond(502,['ok'=>false,'error'=>$code]);
 }

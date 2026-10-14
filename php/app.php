@@ -90,8 +90,10 @@ function http_post(string $url, string $body, string $type): array {
     if(!function_exists('curl_init')) throw new RuntimeException('curl_required');
     $c=curl_init($url);
     curl_setopt_array($c,[CURLOPT_POST=>true,CURLOPT_POSTFIELDS=>$body,CURLOPT_HTTPHEADER=>['Content-Type: '.$type],CURLOPT_RETURNTRANSFER=>true,CURLOPT_CONNECTTIMEOUT=>10,CURLOPT_TIMEOUT=>30,CURLOPT_FOLLOWLOCATION=>true,CURLOPT_MAXREDIRS=>3]);
-    $text=curl_exec($c); $status=curl_getinfo($c,CURLINFO_RESPONSE_CODE); unset($c);
-    if($text===false || $status<200 || $status>=300) throw new RuntimeException('delivery');
+    $text=curl_exec($c); $status=curl_getinfo($c,CURLINFO_RESPONSE_CODE); $errno=curl_errno($c); unset($c);
+    $service=parse_url($url,PHP_URL_HOST)==='api.telegram.org' ? 'telegram' : 'google';
+    if($text===false) throw new RuntimeException($service.'_curl_'.$errno);
+    if($status<200 || $status>=300) throw new RuntimeException($service.'_http_'.$status);
     return [$status,$text];
 }
 function deliver_lead(array $lead, callable $post): void {

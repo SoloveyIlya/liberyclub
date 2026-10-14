@@ -108,7 +108,17 @@ async function sendApplication() {
       ...(() => { try { const {sid, attribution} = trackingContext(); return {sid, attribution}; } catch { return {}; } })(),
     }),
   });
-  if (!response.ok) throw new Error("send");
+  const result = await response.json().catch(() => null);
+  if (!response.ok || result?.ok !== true) {
+    const code = result?.error || `http_${response.status}`;
+    const messages = {
+      curl_required: "На хостинге не включён cURL. Сообщите владельцу сайта.",
+      telegram_config: "Не настроена отправка в Telegram. Сообщите владельцу сайта.",
+      storage: "Сервер не может сохранить заявку. Сообщите владельцу сайта.",
+      google_http_429: "Google временно ограничил приём заявок. Попробуйте позже.",
+    };
+    throw new Error(messages[code] || `Не удалось отправить заявку (код: ${code}). Попробуйте позже.`);
+  }
 }
 
 let sending = false;
@@ -132,7 +142,8 @@ form.addEventListener("submit", async (event) => {
     head.hidden = true;
     done.hidden = false;
     window.location.assign(withUTM("https://t.me/MelehinCreo"));
-  } catch {
+  } catch (failure) {
+    error.textContent = failure.message || "Нет связи с сервером. Попробуйте ещё раз.";
     sending = false;
     submit.disabled = false;
     error.hidden = false;

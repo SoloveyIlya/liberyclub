@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
+    <script>
+      // URL папки без завершающего / не должен отправлять запросы в корень домена.
+      if (!location.pathname.endsWith('/') && !/\.[^/]+$/.test(location.pathname)) {
+        const base = document.createElement('base');
+        base.href = location.pathname.endsWith('/analytics')
+          ? location.pathname.slice(0, -'analytics'.length)
+          : location.pathname + '/';
+        document.head.appendChild(base);
+      }
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
@@ -67,6 +77,6 @@
         </section>
       </section>
     </main>
-    <script src="analytics.js?v=php1"></script>
+    <script src="analytics.js?v=php2"></script>
   </body>
 </html>
