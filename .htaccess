@@ -1,0 +1,9 @@
+DirectoryIndex index.html
+<FilesMatch "^(\.env.*|\.git.*|.*\.jsonl|server\.js|package.*\.json|.*\.test\.js|README\.md)$">
+  Require all denied
+</FilesMatch>
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^(?:\.git|data|tests|php|storage)(?:/|$) - [F,L]
+  RewriteRule ^analytics/?$ analytics.html [R=302,L]
+</IfModule>

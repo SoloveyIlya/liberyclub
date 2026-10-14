@@ -94,7 +94,7 @@ async function showBoard(all = false) {
   }
   status.textContent = 'Загрузка…';
   try {
-    const response = await fetch(`/api/analytics?${params}`);
+    const response = await fetch(`api.php?action=analytics&${params}`);
     if (id !== request) return;
     if (response.status === 401) { gate.hidden=false; board.hidden=true; status.textContent=''; return; }
     if (!response.ok) throw new Error('Не удалось загрузить данные. Проверьте диапазон дат и повторите.');
@@ -119,25 +119,32 @@ login.addEventListener("submit", async (event) => {
   const button = login.querySelector("button");
   button.disabled = true;
   loginError.hidden = true;
-  const response = await fetch("/api/analytics/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ password: login.elements.password.value }),
-  });
-  button.disabled = false;
-  if (!response.ok) {
+  try {
+    const response = await fetch("api.php?action=login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: login.elements.password.value }),
+    });
+    if (!response.ok) {
+      loginError.hidden = false;
+      loginError.textContent = response.status === 429 ? "слишком много попыток, подожди минуту" : response.status === 401 ? "неверный пароль" : "Не удалось войти. Проверьте настройки PHP на хостинге.";
+      return;
+    }
+    login.reset();
+    await showBoard();
+  } catch {
     loginError.hidden = false;
-    loginError.textContent = response.status === 429 ? "слишком много попыток, подожди минуту" : "неверный пароль";
-    return;
-  }
-  login.reset();
-  showBoard();
+    loginError.textContent = "Нет связи с сервером. Попробуйте ещё раз.";
+  } finally { button.disabled = false; }
 });
 
 document.querySelector(".analytics-out").addEventListener("click", async () => {
-  await fetch("/api/analytics/logout", { method: "POST" });
-  board.hidden = true;
-  gate.hidden = false;
+  try {
+    const response = await fetch("api.php?action=logout", { method: "POST" });
+    if (!response.ok) throw new Error();
+    board.hidden = true;
+    gate.hidden = false;
+  } catch { status.textContent = "Не удалось выйти. Повторите попытку."; }
 });
 
 showBoard();

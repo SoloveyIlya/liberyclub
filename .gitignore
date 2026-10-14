@@ -6,3 +6,7 @@ data
 # Local video assets; deploy separately.
 /VSL_oct.mov
 /assets/VSL_oct.mp4
+
+/config.php
+/storage/
+/libertyclub-php.zip
