@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Получить персональный план</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,800;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="quiz">
+      <section class="quiz-card">
+        <div class="quiz-head">
+          <p class="quiz-step">шаг 1 из 7</p>
+          <div
+            class="quiz-progress"
+            role="progressbar"
+            aria-valuemin="1"
+            aria-valuemax="7"
+            aria-valuenow="1"
+            aria-label="Прогресс анкеты"
+          >
+            <span></span>
+          </div>
+        </div>
+
+        <form class="quiz-form" novalidate>
+          <fieldset class="quiz-panel">
+            <h1 class="quiz-q" tabindex="-1">
+              Хочешь ли создать агентство вокруг своего навыка и начать зарабатывать $3000-$5000
+            </h1>
+            <div class="choices">
+              <label class="choice">
+                <input type="radio" name="intent" value="Да, я хочу" required />
+                <span>Да, я хочу</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="intent" value="Хочу просто узнать подробнее о том, что это такое" />
+                <span>Хочу просто узнать подробнее о том, что это такое</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="quiz-panel" hidden>
+            <h1 class="quiz-q" tabindex="-1">Чем ты зарабатываешь прямо сейчас?</h1>
+            <div class="choices">
+              <label class="choice">
+                <input
+                  type="radio"
+                  name="work"
+                  value="Монтаж, дизайн, СММ, копирайтинг или другая услуга"
+                  required
+                />
+                <span>Монтаж, дизайн, СММ, копирайтинг или другая услуга</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="work" value="У меня свой проект или продукт, нужны клиенты" />
+                <span>У меня свой проект или продукт, нужны клиенты</span>
+              </label>
+              <label class="choice">
+                <input
+                  type="radio"
+                  name="work"
+                  value="Пока ничего не продаю, ищу, с чего начать или чем заняться"
+                />
+                <span>Пока ничего не продаю, ищу, с чего начать или чем заняться</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="quiz-panel" hidden>
+            <h1 class="quiz-q" tabindex="-1">Сколько ты зарабатываешь сейчас в месяц?</h1>
+            <div class="choices">
+              <label class="choice">
+                <input type="radio" name="income" value="До $500" required />
+                <span>До $500</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="income" value="От $500 до $1.000" />
+                <span>От $500 до $1.000</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="income" value="От $1.000" />
+                <span>От $1.000</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="quiz-panel" hidden>
+            <h1 class="quiz-q" tabindex="-1">
+              Какую цель по доходу ты ставишь перед собой на ближайшие 3 месяца?
+            </h1>
+            <div class="choices">
+              <label class="choice">
+                <input type="radio" name="target" value="До $3 000" required />
+                <span>До $3 000</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="target" value="От $3 000 до $5 000" />
+                <span>От $3 000 до $5 000</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="target" value="Больше $10 000" />
+                <span>Больше $10 000</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="quiz-panel" hidden>
+            <h1 class="quiz-q" tabindex="-1">Что мешает тебе достичь твою цель?</h1>
+            <div class="choices">
+              <label class="choice">
+                <input
+                  type="radio"
+                  name="blocker"
+                  value="Нет стабильного потока клиентов: то густо, то пусто"
+                  required
+                />
+                <span>Нет стабильного потока клиентов: то густо, то пусто</span>
+              </label>
+              <label class="choice">
+                <input
+                  type="radio"
+                  name="blocker"
+                  value="Много работы, а чек маленький, поднять цену страшно"
+                />
+                <span>Много работы, а чек маленький, поднять цену страшно</span>
+              </label>
+              <label class="choice">
+                <input
+                  type="radio"
+                  name="blocker"
+                  value="Заказы есть, но не тяну рост: не хватает рук, делегировать не получилось"
+                />
+                <span>Заказы есть, но не тяну рост: не хватает рук, делегировать не получилось</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="quiz-panel" hidden>
+            <h1 class="quiz-q" tabindex="-1">
+              Представь, что персональный разбор прошел на 10 из 10. Что изменилось в твоей жизни?
+            </h1>
+            <p class="quiz-hint">
+              Не просто «больше денег». Что конкретно: где ты живёшь, как проходит твой день, что ты
+              можешь себе позволить.
+            </p>
+            <label class="field">
+              <span class="sr-only">Ответ</span>
+              <textarea name="vision" rows="5" required></textarea>
+            </label>
+          </fieldset>
+
+          <fieldset class="quiz-panel" hidden>
+            <h1 class="quiz-q" tabindex="-1">
+              Последний шаг, чтобы попасть на персональный разбор и забрать полезный материал
+            </h1>
+            <div class="fields">
+              <label class="field">
+                Имя
+                <input name="name" type="text" autocomplete="name" required minlength="2" />
+              </label>
+              <label class="field">
+                Номер телефона
+                <input
+                  name="phone"
+                  type="tel"
+                  inputmode="tel"
+                  autocomplete="tel"
+                  placeholder="+7"
+                  required
+                />
+              </label>
+              <label class="field">
+                Ник в телеграм
+                <input
+                  name="telegram"
+                  type="text"
+                  inputmode="text"
+                  autocapitalize="off"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="@"
+                  required
+                />
+              </label>
+            </div>
+          </fieldset>
+
+          <p class="quiz-error" hidden>Не получилось отправить. Попробуй ещё раз.</p>
+          <div class="quiz-nav">
+            <button class="quiz-back" type="button" hidden>назад</button>
+            <button class="cta quiz-next" type="button">далее</button>
+            <button class="cta quiz-submit" type="submit" hidden>отправить</button>
+          </div>
+        </form>
+
+        <p class="quiz-done" hidden>спасибо. заявка принята.</p>
+      </section>
+    </main>
+
+    <script src="track.js"></script>
+    <script src="quiz.js"></script>
+  </body>
+</html>

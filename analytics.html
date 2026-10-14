@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Аналитика</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,800;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="analytics.css" />
+  </head>
+  <body>
+    <main class="analytics">
+      <section class="quiz-card analytics-gate" hidden>
+        <p class="quiz-step">доступ</p>
+        <h1>аналитика</h1>
+        <form class="analytics-login" novalidate>
+          <label class="field">
+            пароль
+            <input name="password" type="password" autocomplete="current-password" required />
+          </label>
+          <p class="quiz-error" hidden>неверный пароль</p>
+          <button class="cta analytics-enter" type="submit">войти</button>
+        </form>
+      </section>
+
+      <section class="analytics-board" hidden>
+        <header class="analytics-top">
+          <div>
+            <p class="quiz-step">только для своих</p>
+            <h1>аналитика</h1>
+          </div>
+          <button class="analytics-out" type="button">выйти</button>
+        </header>
+
+        <form class="date-filter">
+          <label>С <input type="date" name="from" required></label>
+          <label>По <input type="date" name="to" required></label>
+          <button type="submit">Применить</button>
+          <button type="button" data-period="7">7 дней</button>
+          <button type="button" data-period="30">30 дней</button>
+          <button type="button" data-period="all">Всё время</button>
+        </form>
+        <p class="report-status" role="status"></p>
+        <div class="stats"></div>
+        <p class="conversion"></p>
+        <section class="panel">
+          <h2>По дням</h2>
+          <div class="days table-scroll"></div><p class="muted">Ср. просмотр — средний максимальный таймкод среди сеансов с измерением. Дни: Минск (UTC+3).</p>
+        </section>
+        <section class="panel">
+          <h2>воронка</h2>
+          <p class="muted">Процент от заходов за выбранный период. Считаются уникальные сеансы.</p><div class="funnel"></div>
+        </section>
+        <section class="panel"><h2>Источники переходов</h2><p class="muted">UTM-метки при входе; без меток — внешний сайт или прямой заход.</p><div class="sources table-scroll"></div></section>
+        <section class="panel"><h2>Последние заходы</h2><p class="muted">До 100 последних заходов. Имя доступно после отправки анкеты.</p><div class="visitors table-scroll"></div></section>
+        <div class="answers"></div>
+        <section class="panel">
+          <h2>последние заявки</h2>
+          <div class="leads"></div>
+        </section>
+      </section>
+    </main>
+    <script src="analytics.js"></script>
+  </body>
+</html>
